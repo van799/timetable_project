@@ -1,0 +1,14 @@
+{% load user_filters %}
+
+<div class="card my-4">
+    <h5 class="card-header">Выбрать месяц:</h5>
+    <div class="card-body">
+        <form method="get" action="{% url 'table:index' %}">
+                <div class="form-group mb-2">
+
+                    {{ all_calendar.month|addclass:"form-control" }}
+                </div>
+            <button type="submit" class="btn btn-primary">Выбрать</button>
+        </form>
+    </div>
+</div>

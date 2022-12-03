@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Добавление дежурств{% endblock %}
+{% load user_filters %}
+{% block content %}
+
+
+<div class="container">
+    <h1 class="order-top text-center py-3">Добавление дежурств</h1>
+
+    <div class="card my-4">
+        <h5 class="card-header">Добавить дежурство:</h5>
+        <div class="card-body">
+
+            <div class="card-body">
+                <form method="post" action="{% url 'table:create_table' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-2">
+                        Выбрать месяц для добавления дежурст:
+                        {{ form.month|addclass:"form-control" }}
+                        Выбрать сотрудника для добавления дежурст:
+                        {{ form.title|addclass:"form-control" }}
+                        Выбрать тип дежурства сотрудника:
+                        {{ form.type_security|addclass:"form-control" }}
+                        Дата добавления дежурства в формате ДД.ММ.ГГГГ:
+                        {{ form.start_date|addclass:"form-control" }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+
+                </form>
+
+            </div>
+            <hr>
+            <h5>Выбрать месяц добавленных дежурств:</h5>
+            <div class="card-body">
+                <form method="get" action="{% url 'table:create_table' %}">
+                    <div class="form-group mb-2">
+                        {{ all_calendar.month|addclass:"form-control" }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Выбрать</button>
+                </form>
+            </div>
+
+            {% for table in tables %}
+            <hr>
+            {{ table.start_date }} |
+            {{ table.title }} |
+            {{ table.type_security }} |
+            <a href="{% url 'table:edit_table' table.event_id %}">Удалить</a>
+
+            {% endfor %}
+        </div>
+        {% endblock %}
+
+
+

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+    Расисание дежурств
+{% endblock %}
+{% block content %}
+
+
+<style>
+
+    td {
+        border-style: none;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="calendar" class="d-none d-md-flex col-md-4 col-lg-8 p-3"></div>
+            <div class="col-md-8 col-lg-4">
+
+                <div class="login d-flex py-3">
+                    <div class="container">
+                        {% include 'includes/select_month.html' %}
+                        {% include 'includes/comments.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{ events|json_script:"events" }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize calendar
+        var calendarEl = document.getElementById("calendar");
+        events = JSON.parse(document.getElementById("events").textContent);
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            themeSystem: "bootstrap4",
+            locale: "ru",
+            firstDay: 1,
+            height: "100",
+            initialView: "dayGridMonth",
+            eventSources: [
+                                // your event source
+                                {
+                                  events: events,
+                                  color: 'red',     // an option!
+                                  textColor: 'yellow' // an option!
+                                }
+                              ]
+        });
+
+
+
+    calendar.render();
+
+    });
+</script>
+
+{% endblock content %}
