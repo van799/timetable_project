@@ -93,7 +93,13 @@ def create_table(request):
         instance = form.save(commit=False)
         instance.save()
 
-    tables = Event.objects.filter(month=selected_calendar).order_by('-start_date')
+    # сортировка дежурств по имени или по дате
+    sort = request.GET.get('sort')
+    if sort == 'date_up':
+        tables = Event.objects.filter(month=selected_calendar).order_by('start_date')
+    else:
+        tables = Event.objects.filter(month=selected_calendar).order_by('-start_date')
+
     context = {
         'all_calendar': all_calendar,
         'form': form,

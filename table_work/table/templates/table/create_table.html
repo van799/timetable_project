@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Добавление дежурств{% endblock %}
 {% load user_filters %}
 {% block content %}
@@ -40,6 +41,12 @@
                     <button type="submit" class="btn btn-primary">Выбрать</button>
                 </form>
             </div>
+
+
+
+            Сортировать по:
+            <a href="/create?sort=date_up"> с начало месяца   </a>|
+            <a href="/create?sort=date_down"> с конца месяца </a>|
 
             {% for table in tables %}
             <hr>
